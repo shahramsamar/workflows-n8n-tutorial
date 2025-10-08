@@ -1,0 +1,200 @@
+{
+  "name": "telegram bot with two condition",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -560,
+        -64
+      ],
+      "id": "d7f235a4-7937-4dcd-ad7b-6f931559a9cd",
+      "name": "Telegram Trigger",
+      "webhookId": "d5cd57ed-6ae5-4f35-be7a-de92fe5d0a37",
+      "credentials": {
+        "telegramApi": {
+          "id": "8T8GBSILXib8SooW",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09e3614a-5ce0-43fa-b9fe-ec0433f015ec",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -352,
+        -64
+      ],
+      "id": "b5575f48-f3b7-4814-8c68-0f593a33a91e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=لطفا دستور  مورد نظر خود رو انتحاب کنید \n\n/bmi\n/buy-or-not\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -96,
+        -112
+      ],
+      "id": "43675991-a1a7-4904-81f9-fb9d566c24da",
+      "name": "Send a text message",
+      "webhookId": "81a745d3-504c-4a31-97bf-ad578cb682bf",
+      "credentials": {
+        "telegramApi": {
+          "id": "8T8GBSILXib8SooW",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "54fe9396-062b-4503-8115-156d2270af7a",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/bmi",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        96
+      ],
+      "id": "10456ab7-ec17-407f-b9ef-d04a559547a9",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "محاسبه bmi",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        112,
+        16
+      ],
+      "id": "5c354a65-d28a-4fc1-aac7-65eb534e5a87",
+      "name": "Send a text message1",
+      "webhookId": "21d62c29-1634-49a5-97bc-c89a1de02bbf",
+      "credentials": {
+        "telegramApi": {
+          "id": "8T8GBSILXib8SooW",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ecc91c1a-8b12-48ee-9614-3dd0bf36ced1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d0e3682257a9c0590cd7aeb190f4c006aede0f882eefcbacdce6fe5844c5adfe"
+  },
+  "id": "6x1fVgwAquCYf0yM",
+  "tags": []
+}

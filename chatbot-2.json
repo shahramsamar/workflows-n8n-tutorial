@@ -1,0 +1,93 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -304,
+        -48
+      ],
+      "id": "35770ca2-f1bd-442a-95d6-0e15f5c65dab",
+      "name": "When chat message received",
+      "webhookId": "a37a026a-cb29-4055-90f8-15455ce12074"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -48
+      ],
+      "id": "8eb34065-8039-4dbd-8d56-b4618aef9a6c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        160
+      ],
+      "id": "096c028a-a854-4c46-b57e-b408fb693fc6",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UqKZ5cXnHS5OiYJ1",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3c6db93c-0202-4332-b03a-7d24092613e3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d0e3682257a9c0590cd7aeb190f4c006aede0f882eefcbacdce6fe5844c5adfe"
+  },
+  "id": "JWBU5NMGxq4obOjQ",
+  "tags": []
+}

@@ -1,0 +1,144 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1984,
+        -336
+      ],
+      "id": "ae8b67da-30ba-4f65-a2d0-0664d0bd4e70",
+      "name": "Telegram Trigger",
+      "webhookId": "4b2d76a9-b3e6-45bd-8c45-6e28a33fa0b8",
+      "credentials": {
+        "telegramApi": {
+          "id": "8T8GBSILXib8SooW",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "85aa3770-993c-4811-b72a-4b24594b3506",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1728,
+        -336
+      ],
+      "id": "c0fed74b-342d-4e3e-8eaa-1943c69a2f2c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "https://certmusashi.github.io/Chande/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1392,
+        -336
+      ],
+      "id": "56d72ec3-e9c2-4114-9bf0-177dee907db9",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "={{ $json.message.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -1168,
+        -320
+      ],
+      "id": "eaed58df-923d-42b8-bd73-900ab3766321",
+      "name": "Send a text message",
+      "webhookId": "a007a81f-64a9-456f-a41a-c8725548add6",
+      "credentials": {
+        "telegramApi": {
+          "id": "8T8GBSILXib8SooW",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2b683381-9c25-442b-a113-94ce9580f0fd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d0e3682257a9c0590cd7aeb190f4c006aede0f882eefcbacdce6fe5844c5adfe"
+  },
+  "id": "CuWDjNpYwLMuO52L",
+  "tags": []
+}

@@ -22,7 +22,7 @@ This repository is a collection of **example workflows** for the **n8n** automat
 
 Workflows are stored as JSON files, categorized by difficulty level and primary use case for your convenience:
 
-| پوشه (Folder) | سطح سختی (Difficulty) | کاربرد اصلی (Primary Use Case) |
+| ریپو (repo) | سطح سختی (Difficulty) | کاربرد اصلی (Primary Use Case) |
 | :--- | :--- | :--- |
 | **`01-Beginner-Essentials`** | آسان / Easy | برای شروع و آشنایی با مفاهیم پایه‌ای n8n و اولین ورک‌فلوها (مثل مدیریت داده ساده). |
 | **`02-Intermediate-Logic`** | متوسط / Medium | پروژه‌های کمی پیچیده‌تر با استفاده از منطق‌های شرطی، حلقه‌ها و پردازش داده‌های JSON. |

@@ -1,0 +1,117 @@
+{
+  "name": "anaylysis comment user",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        -32
+      ],
+      "id": "9d5927a6-25d4-45fe-a31b-7489dbebe1bb",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.digikala.com/v1/rate-review/products/19230983/?page=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        -32
+      ],
+      "id": "b14b4331-061b-4808-8fde-8b8ce4dbfd5f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=کامنت های یک مخصول در دیجی کالا هست نسبت به کامنت ها پیشنهاد خرید بده به کاربر {{ $json.data.comments[0].body }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        48,
+        -32
+      ],
+      "id": "2ef72187-7f9b-4af5-8c7c-2196c11a10ea",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "deepseek-chat",
+          "mode": "list",
+          "cachedResultName": "deepseek-chat"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        208
+      ],
+      "id": "c07b2be3-2951-48a4-9e7d-ea3d5125b5cc",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UqKZ5cXnHS5OiYJ1",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "15ebda51-4ff7-475b-a24b-f8416e45f270",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d0e3682257a9c0590cd7aeb190f4c006aede0f882eefcbacdce6fe5844c5adfe"
+  },
+  "id": "TNULLnfIPEjse9Cm",
+  "tags": []
+}
